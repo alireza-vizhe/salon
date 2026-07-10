@@ -1,0 +1,342 @@
+{
+  "76": {
+    "inputs": {
+      "image": "humanforhair.webp"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Load Image"
+    }
+  },
+  "81": {
+    "inputs": {
+      "image": "hairC.webp"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Load Image"
+    }
+  },
+  "94": {
+    "inputs": {
+      "filename_prefix": "Flux2-Klein",
+      "images": [
+        "103",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "Save Image"
+    }
+  },
+  "99": {
+    "inputs": {
+      "sampler_name": "euler"
+    },
+    "class_type": "KSamplerSelect",
+    "_meta": {
+      "title": "KSamplerSelect"
+    }
+  },
+  "100": {
+    "inputs": {
+      "steps": 4,
+      "width": [
+        "115",
+        0
+      ],
+      "height": [
+        "115",
+        1
+      ]
+    },
+    "class_type": "Flux2Scheduler",
+    "_meta": {
+      "title": "Flux2Scheduler"
+    }
+  },
+  "101": {
+    "inputs": {
+      "cfg": 1,
+      "model": [
+        "116",
+        0
+      ],
+      "positive": [
+        "112:121",
+        0
+      ],
+      "negative": [
+        "112:119",
+        0
+      ]
+    },
+    "class_type": "CFGGuider",
+    "_meta": {
+      "title": "CFGGuider"
+    }
+  },
+  "102": {
+    "inputs": {
+      "noise": [
+        "104",
+        0
+      ],
+      "guider": [
+        "101",
+        0
+      ],
+      "sampler": [
+        "99",
+        0
+      ],
+      "sigmas": [
+        "100",
+        0
+      ],
+      "latent_image": [
+        "114",
+        0
+      ]
+    },
+    "class_type": "SamplerCustomAdvanced",
+    "_meta": {
+      "title": "SamplerCustomAdvanced"
+    }
+  },
+  "103": {
+    "inputs": {
+      "samples": [
+        "102",
+        0
+      ],
+      "vae": [
+        "108",
+        0
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE Decode"
+    }
+  },
+  "104": {
+    "inputs": {
+      "noise_seed": 280785176016826
+    },
+    "class_type": "RandomNoise",
+    "_meta": {
+      "title": "RandomNoise"
+    }
+  },
+  "106": {
+    "inputs": {
+      "clip_name": "qwen_3_8b_fp8mixed.safetensors",
+      "type": "flux2",
+      "device": "default"
+    },
+    "class_type": "CLIPLoader",
+    "_meta": {
+      "title": "Load CLIP"
+    }
+  },
+  "107": {
+    "inputs": {
+      "text": "You are an advanced professional hair color simulation AI specialized in photorealistic salon-quality hair color visualization.\n\nYou have two images:\n\nImage 1: The user's original face photo. This image is the identity reference and must remain unchanged.\n\nImage 2: The desired hair color reference. This image provides only the target hair color, tone, highlights, undertones, depth, and finish.\n\nTask:\n\nChange ONLY the user's hair color in Image 1 so that it matches the exact color characteristics shown in Image 2.\n\nDo not copy the hairstyle from Image 2.\n\nOnly transfer the hair color.\n\n────────────────────────\nSTRICT IDENTITY PRESERVATION\n────────────────────────\n\nPreserve the user's exact identity.\n\nKeep unchanged:\n\n- Face shape\n- Eyes\n- Eyebrows\n- Eyelashes\n- Nose\n- Lips\n- Skin texture\n- Skin tone\n- Makeup\n- Facial expression\n- Hairstyle\n- Hair length\n- Hair volume\n- Hair cut\n- Hair direction\n- Clothing\n- Accessories\n- Background\n- Camera angle\n- Lighting\n\nOnly the hair color may change.\n\n────────────────────────\nHAIR COLOR TRANSFER\n────────────────────────\n\nTransfer only:\n\n- Hair color\n- Tone\n- Undertone\n- Warmth\n- Coolness\n- Brightness\n- Saturation\n- Depth\n- Highlights\n- Lowlights\n- Shine\n- Gloss\n- Dimensional coloring\n\nKeep:\n\n- Every individual hair strand\n- Hair texture\n- Natural flyaway hairs\n- Hair thickness\n- Hair movement\n- Curl pattern\n- Hair volume\n\nDo not repaint or redraw the hair.\n\nThe original hairstyle must remain identical.\n\n────────────────────────\nREALISTIC SALON RESULT\n────────────────────────\n\nSimulate a professional salon-quality hair coloring treatment.\n\nThe result should accurately represent how the target color would naturally appear on the user's own hair.\n\nRespect:\n\n- Existing lighting\n- Shadows\n- Highlights\n- Specular reflections\n- Hair translucency\n- Root transitions\n- Natural color variation\n- Multi-dimensional hair tones\n\nThe hair must never appear flat or painted.\n\nIndividual hair fibers must remain visible.\n\nMaintain realistic shine and natural color gradients.\n\n────────────────────────\nREFERENCE COLOR MATCHING\n────────────────────────\n\nAnalyze the reference color precisely.\n\nMatch:\n\n- Base color\n- Highlight color\n- Undertones\n- Root color\n- Mid-length color\n- Ends color\n- Color depth\n- Color richness\n- Professional salon finish\n\nAdapt the reference naturally according to the user's original hair and lighting conditions.\n\n────────────────────────\nPHOTOREALISM\n────────────────────────\n\nThe final image must look like a real professional salon photograph.\n\nNo AI appearance.\n\nNo fake recoloring.\n\nNo painted effect.\n\nNo cartoon style.\n\nNo CGI.\n\nNo unrealistic glossy plastic hair.\n\nNo solid color overlay.\n\nThe result must be indistinguishable from a real photograph taken after a professional hair coloring service.\n\nUltra photorealistic.\n\nLuxury salon photography.\n\nHigh resolution.\n\nProfessional hair color consultation quality.",
+      "clip": [
+        "106",
+        0
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Positive Prompt)"
+    }
+  },
+  "108": {
+    "inputs": {
+      "vae_name": "flux2-vae.safetensors"
+    },
+    "class_type": "VAELoader",
+    "_meta": {
+      "title": "Load VAE"
+    }
+  },
+  "109": {
+    "inputs": {
+      "upscale_method": "nearest-exact",
+      "megapixels": 1,
+      "resolution_steps": 1,
+      "image": [
+        "76",
+        0
+      ]
+    },
+    "class_type": "ImageScaleToTotalPixels",
+    "_meta": {
+      "title": "ImageScaleToTotalPixels"
+    }
+  },
+  "110": {
+    "inputs": {
+      "upscale_method": "nearest-exact",
+      "megapixels": 1,
+      "resolution_steps": 1,
+      "image": [
+        "81",
+        0
+      ]
+    },
+    "class_type": "ImageScaleToTotalPixels",
+    "_meta": {
+      "title": "ImageScaleToTotalPixels"
+    }
+  },
+  "113": {
+    "inputs": {
+      "conditioning": [
+        "107",
+        0
+      ]
+    },
+    "class_type": "ConditioningZeroOut",
+    "_meta": {
+      "title": "ConditioningZeroOut"
+    }
+  },
+  "114": {
+    "inputs": {
+      "width": [
+        "115",
+        0
+      ],
+      "height": [
+        "115",
+        1
+      ],
+      "batch_size": 1
+    },
+    "class_type": "EmptyFlux2LatentImage",
+    "_meta": {
+      "title": "Empty Flux 2 Latent"
+    }
+  },
+  "115": {
+    "inputs": {
+      "image": [
+        "109",
+        0
+      ]
+    },
+    "class_type": "GetImageSize",
+    "_meta": {
+      "title": "Get Image Size"
+    }
+  },
+  "116": {
+    "inputs": {
+      "unet_name": "flux-2-klein-9b-Q8_0.gguf"
+    },
+    "class_type": "UnetLoaderGGUF",
+    "_meta": {
+      "title": "Unet Loader (GGUF)"
+    }
+  },
+  "111:118": {
+    "inputs": {
+      "conditioning": [
+        "113",
+        0
+      ],
+      "latent": [
+        "111:78",
+        0
+      ]
+    },
+    "class_type": "ReferenceLatent",
+    "_meta": {
+      "title": "ReferenceLatent"
+    }
+  },
+  "111:78": {
+    "inputs": {
+      "pixels": [
+        "109",
+        0
+      ],
+      "vae": [
+        "108",
+        0
+      ]
+    },
+    "class_type": "VAEEncode",
+    "_meta": {
+      "title": "VAE Encode"
+    }
+  },
+  "111:77": {
+    "inputs": {
+      "conditioning": [
+        "107",
+        0
+      ],
+      "latent": [
+        "111:78",
+        0
+      ]
+    },
+    "class_type": "ReferenceLatent",
+    "_meta": {
+      "title": "ReferenceLatent"
+    }
+  },
+  "112:119": {
+    "inputs": {
+      "conditioning": [
+        "111:118",
+        0
+      ],
+      "latent": [
+        "112:120",
+        0
+      ]
+    },
+    "class_type": "ReferenceLatent",
+    "_meta": {
+      "title": "ReferenceLatent"
+    }
+  },
+  "112:120": {
+    "inputs": {
+      "pixels": [
+        "110",
+        0
+      ],
+      "vae": [
+        "108",
+        0
+      ]
+    },
+    "class_type": "VAEEncode",
+    "_meta": {
+      "title": "VAE Encode"
+    }
+  },
+  "112:121": {
+    "inputs": {
+      "conditioning": [
+        "111:77",
+        0
+      ],
+      "latent": [
+        "112:120",
+        0
+      ]
+    },
+    "class_type": "ReferenceLatent",
+    "_meta": {
+      "title": "ReferenceLatent"
+    }
+  }
+}
