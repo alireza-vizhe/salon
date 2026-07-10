@@ -378,7 +378,7 @@ export default function Explorer() {
       // فراخوانی API سرور Node.js واسط
       // فراخوانی API از طریق آدرس آنلاین Ngrok
       // نمونه کد کلاینت در فرانت‌اِند شما
-const response = await fetch('https://bb57-2606-2040-3800-4c-00-23.ngrok-free.app/api/try-on', {
+const response = await fetch('https://5190-2606-2040-3800-4c-00-23.ngrok-free.app/api/try-on', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
