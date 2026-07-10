@@ -377,17 +377,18 @@ export default function Explorer() {
       
       // فراخوانی API سرور Node.js واسط
       // فراخوانی API از طریق آدرس آنلاین Ngrok
-      const response = await fetch('https://1234-abcd.ngrok-free.app/api/try-on', {
-        method: 'POST',
-        headers: { 
-          'Content-Type': 'application/json',
-          'ngrok-skip-browser-warning': 'true' // این هدر برای دور زدن صفحه هشدار Ngrok الزامی است
-        },
-        body: JSON.stringify({
-          userImageBase64: userPhotoDataUrl,
-          refImageUrl: refImageUrl 
-        })
-      });
+      // نمونه کد کلاینت در فرانت‌اِند شما
+const response = await fetch('https://bb57-2606-2040-3800-4c-00-23.ngrok-free.app/api/try-on', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'ngrok-skip-browser-warning': 'true' // این خط حیاتی است!
+  },
+  body: JSON.stringify({
+    userImageBase64: userPhotoDataUrl, // یا هر ساختاری که قبلاً برای کدهایتان زدید
+    refImageUrl: refImageUrl
+  })
+});
 
       const data = await response.json();
 
