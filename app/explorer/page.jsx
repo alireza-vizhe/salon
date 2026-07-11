@@ -378,7 +378,8 @@ export default function Explorer() {
       // فراخوانی API سرور Node.js واسط
       // فراخوانی API از طریق آدرس آنلاین Ngrok
       // نمونه کد کلاینت در فرانت‌اِند شما
-const response = await fetch('https://5b44-2606-2040-3800-4c-00-23.ngrok-free.app/api/try-on', {
+      // https://5b44-2606-2040-3800-4c-00-23.ngrok-free.app
+const response = await fetch('http://localhost:3001/api/try-on', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
@@ -490,86 +491,154 @@ const response = await fetch('https://5b44-2606-2040-3800-4c-00-23.ngrok-free.ap
       <Footer/>
 
       {/* MODAL */}
-      <div 
-        className={`modal-backdrop ${isModalOpen ? 'open' : ''}`} 
-        onClick={(e) => {
-          if (e.target === e.currentTarget) closeModal();
-        }}
-      >
-        <div className="modal-box">
-          <div className="modal-close" onClick={closeModal}>✕</div>
-          
-          {currentItem && (
-            <div className="modal-grid">
-              <div className="modal-ref">
-                <img src={currentItem.img} alt={currentItem.title} />
-                <div className="ref-tag">{catLabel[currentItem.cat]}</div>
-              </div>
-              <div className="modal-body">
-                <span className="cat-pill">{catLabel[currentItem.cat]}</span>
-                <h3>{currentItem.title}</h3>
-                <div className="salon-line">
-                  <img src={currentItem.salonImg} alt={currentItem.salon} />
-                  <span>{currentItem.salon}</span>
-                </div>
-                <div className="price-line">قیمت تقریبی: <b>{currentItem.price}</b></div>
+      <div
+  className={`modal-backdrop-custom ${isModalOpen ? "open" : ""}`}
+  onClick={(e) => {
+    if (e.target === e.currentTarget) closeModal();
+  }}
+>
+  <div className="modal-custom">
+    <div className="modal-close-custom" onClick={closeModal}>
+      ✕
+    </div>
 
-                <label className={`upload-zone ${userPhotoDataUrl ? 'has-img' : ''}`}>
-                  <input type="file" accept="image/*" onChange={handleFileUpload} />
-                  {!userPhotoDataUrl ? (
-                    <div>
-                      <i className="lucide lucide-image-plus"></i>
-                      <h5>عکس خودت رو آپلود کن</h5>
-                      <span>یک عکس واضح و روبه‌رو از صورت یا موی خودت انتخاب کن</span>
-                    </div>
-                  ) : (
-                    <div className="upload-preview-wrap">
-                      <img className="upload-preview" src={userPhotoDataUrl} alt="User Upload" />
-                      <span className="upload-change">تغییر عکس</span>
-                    </div>
-                  )}
-                </label>
+    {currentItem && (
+      <>
+        <h3 className="fs-5 fw-extrabold text-plum mb-1">
+          {currentItem.title}
+        </h3>
 
-                <button
-                  className={`try-btn-main ${isProcessing ? 'loading' : ''}`}
-                  disabled={!userPhotoDataUrl || isProcessing}
-                  onClick={handleTryAI}
-                >
-                  <span className="spinner"></span>
-                  <span className="btn-label"><i className="lucide lucide-sparkles"></i> امتحان با هوش مصنوعی</span>
-                </button>
+        <p className="small text-muted-custom mb-4">
+          عکس واضح و روبه‌رو از موی خودت آپلود کن
+        </p>
 
-                <div 
-                  ref={resultBoxRef} 
-                  className={`result-box ${showResult ? 'show' : ''}`}
-                >
-                  <div className="result-img">
-                    {/* در اینجا عکس خروجی (و در صورت نبودن، عکس آپلودی کاربر) نمایش داده می‌شود */}
-                    <img src={resultPhotoDataUrl || userPhotoDataUrl} alt="Result Preview" />
-                  </div>
-                  <div className="match-score">
-                    <span className="label">میزان تناسب با چهره شما</span>
-                    <span className="score">{matchScore}٪</span>
-                  </div>
-                  
-                  <button 
-                    className="request-btn"
-                    onClick={handleRequestClick}
-                    style={requestSent ? { background: '#4C8C6B', color: '#fff' } : {}}
-                  >
-                    {requestSent ? (
-                      <><i className="lucide lucide-check"></i> درخواست شما ثبت شد</>
-                    ) : (
-                      <><i className="lucide lucide-calendar-check"></i> درخواست نوبت از این آرایشگاه</>
-                    )}
-                  </button>
-                  <div className="disclaimer">نتیجه فقط جهت پیش‌نمایش است؛ خرید یا پرداختی در سایت انجام نمی‌شود.</div>
-                </div>
-              </div>
+        <label
+          className={`upload-zone ${
+            userPhotoDataUrl ? "has-img" : ""
+          }`}
+        >
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleFileUpload}
+            className="d-none"
+          />
+
+          {userPhotoDataUrl ? (
+            <img
+              src={userPhotoDataUrl}
+              alt="User Preview"
+              className="upload-preview"
+            />
+          ) : (
+            <div>
+              <i className="lucide lucide-image-plus text-gold mb-2"></i>
+
+              <h5 className="fs-6 fw-bold text-plum mb-1">
+                عکس خودت رو آپلود کن
+              </h5>
+
+              <span
+                className="small text-muted-custom"
+                style={{ fontSize: "12px" }}
+              >
+                یک عکس واضح و روبه‌رو از صورت یا موی خودت انتخاب کن
+              </span>
+
+              <br />
+
+              <span
+                className="small text-muted-custom"
+                style={{ fontSize: "12px" }}
+              >
+                فرمت JPG یا PNG
+              </span>
             </div>
           )}
+        </label>
+
+        <button
+          className="try-btn-main"
+          disabled={!userPhotoDataUrl || isProcessing}
+          onClick={handleTryAI}
+        >
+          {isProcessing ? (
+            <span className="spinner-custom"></span>
+          ) : (
+            <>
+              <i className="lucide lucide-sparkles"></i>
+              <span className="btn-label">
+                امتحان با هوش مصنوعی
+              </span>
+            </>
+          )}
+        </button>
+
+        <div
+          ref={resultBoxRef}
+          className={`result-box-custom ${
+            showResult ? "show" : ""
+          }`}
+        >
+          {(resultPhotoDataUrl || userPhotoDataUrl) && (
+            <img
+              src={resultPhotoDataUrl || userPhotoDataUrl}
+              alt="AI Result"
+              className="w-100 rounded-3 mb-3"
+              style={{
+                height: "220px",
+                objectFit: "cover",
+              }}
+            />
+          )}
+
+          <div className="match-score d-flex align-items-center justify-content-between bg-custom-soft p-3 rounded-3 mb-3">
+            <span className="small text-muted-custom fw-semibold">
+              میزان تناسب با چهره شما
+            </span>
+
+            <span className="fs-5 fw-extrabold text-gold">
+              {matchScore}٪
+            </span>
+          </div>
+
+          <button
+            className="request-btn-custom fw-bold"
+            onClick={handleRequestClick}
+            style={
+              requestSent
+                ? {
+                    background: "#4C8C6B",
+                    color: "#fff",
+                  }
+                : {}
+            }
+          >
+            {requestSent ? (
+              <>
+                <i className="lucide lucide-check"></i>
+                درخواست شما ثبت شد
+              </>
+            ) : (
+              <>
+                <i className="lucide lucide-calendar-check"></i>
+                درخواست نوبت از {currentItem.salon}
+              </>
+            )}
+          </button>
+
+          <div
+            className="small text-muted-custom text-center mt-2"
+            style={{ fontSize: "11.5px" }}
+          >
+            نتیجه فقط جهت پیش‌نمایش است؛ خرید یا پرداختی در سایت انجام
+            نمی‌شود.
+          </div>
         </div>
-      </div>
+      </>
+    )}
+  </div>
+</div>
     </>
   );
 }
