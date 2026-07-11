@@ -654,7 +654,9 @@ import Footer from '../components/Footer';
 // ⚠️ بهتره این رو تو Netlify به‌عنوان Environment Variable ست کنی:
 // NEXT_PUBLIC_BACKEND_URL=https://your-static-name.ngrok-free.app
 // اگه از ngrok Static Domain استفاده کنی، دیگه هیچ‌وقت لازم نیست این رو عوض کنی.
-const BACKEND_URL =  'https://kellen-shelly-jolynn.ngrok-free.dev';
+// const BACKEND_URL =  'https://kellen-shelly-jolynn.ngrok-free.dev';
+// این خط جایگزین خط قبلی میشه
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'https://kellen-shelly-jolynn.ngrok-free.dev';
 
 const allItems = [
   { cat: 'hair', img: 'https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=500&h=650&fit=crop', title: 'رنگ کاراملی طبیعی', salon: 'سالن رزا', price: '۸۵۰,۰۰۰ تومان', salonImg: 'https://i.pravatar.cc/40?img=32' },
